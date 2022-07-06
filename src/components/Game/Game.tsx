@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import Button from "../Button/Button";
+import {useDialogState,} from "reakit/Dialog";
 import {WordProps} from "../../App";
 import {getShuffled, getWords} from "../api";
+import Button from "../Button/Button";
 
 const Game = () => {
     const [words, setWords] = useState<WordProps[]>([])
     const [list, setList] = useState<WordProps[]>([])
     const [correct, setCorrect] = useState<WordProps | undefined>(undefined)
+    // const dialog = useDialogState();
 
     useEffect(() => {
         getWords().then((res) => {
@@ -41,10 +43,14 @@ const Game = () => {
                     <ul style={{marginTop: 16}}>
                         {list.map(({id, tat, rus}) => <li key={id} style={{
                             marginBottom: 16
-                        }}><Button style={{width: '-webkit-fill-available'}}
-                                   onClick={() => handleClick(id)}>{rus}</Button>
+                        }}><Button
+                            onClick={() => handleClick(id)}>{rus}</Button>
                         </li>)}
                     </ul>
+                    {/*<DialogDisclosure {...dialog}>Open dialog</DialogDisclosure>*/}
+                    {/*<Dialog {...dialog} aria-label="Welcome">*/}
+                    {/*    Welcome to Reakit!*/}
+                    {/*</Dialog>*/}
                 </> : null}
         </>
     );

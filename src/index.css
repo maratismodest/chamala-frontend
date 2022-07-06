@@ -21,17 +21,14 @@ code {
 
 header {
   padding: 16px;
-  border: 1px solid teal;
 }
 
 main {
   flex: 1;
-  border: 1px solid teal;
 }
 
 footer {
   padding: 16px;
-  border: 1px solid teal;
 }
 
 ul {

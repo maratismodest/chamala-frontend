@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import {Provider} from "reakit";
-import * as system from "reakit-system-bootstrap";
 import './index.scss';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
@@ -12,9 +10,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
     <React.StrictMode>
-        <Provider unstable_system={system}>
-            <App/>
-        </Provider>
+        {/*<Provider unstable_system={system}>*/}
+        <App/>
+        {/*</Provider>*/}
     </React.StrictMode>
 );
 
