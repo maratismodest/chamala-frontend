@@ -1,26 +1,37 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {BrowserRouter, Route, Routes,} from "react-router-dom";
+import Footer from "./components/Footer/Footer";
+import Game from "./components/Game/Game";
+import Header from "./components/Header/Header";
+import Welcome from "./components/Welcome/Welcome";
+
+export interface WordProps {
+    id: number,
+    rus: string,
+    tat: string,
+    audio: string
+}
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+
+    return (
+        <BrowserRouter>
+            <Header/>
+            <main style={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center'
+            }}>
+                <Routes>
+                    <Route index element={<Welcome/>}/>
+                    <Route path={'game'} element={<Game/>}/>
+                </Routes>
+            </main>
+            <Footer/>
+        </BrowserRouter>
+    )
 }
 
 export default App;
