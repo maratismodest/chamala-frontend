@@ -1,0 +1,11 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "io.ionic.translate",
+      "sha256_cert_fingerprints":
+      ["32:7E:16:D3:1B:4A:B5:07:3D:76:23:88:58:12:BB:2A:DC:3A:04:AE:C4:EC:A6:92:0B:D8:D1:24:F3:03:03:A1"]
+    }
+  }
+]
