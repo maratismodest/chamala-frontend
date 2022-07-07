@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import Modal from 'react-modal';
 import {WordProps} from "../../App";
-import {getShuffled, getWords} from "../api";
+import {getWordsAsync, selectGame} from "../../redux/gameSlice";
+import {useAppDispatch, useAppSelector} from "../../redux/hooks";
+import {getShuffled} from "../api";
 import Button from "../Button/Button";
 import {ReactComponent as Happy} from "./../../assets/happy.svg";
 import {ReactComponent as Sad} from "./../../assets/sad.svg";
@@ -42,6 +44,9 @@ const Game = () => {
     const [clicked, setClicked] = useState<WordProps | undefined>(undefined)
     const [modalIsOpen, setIsOpen] = React.useState(false);
 
+    const {status, words: backendWords} = useAppSelector(selectGame);
+    const dispatch = useAppDispatch();
+
     function openModal() {
         setIsOpen(true);
     }
@@ -56,24 +61,20 @@ const Game = () => {
 
 
     useEffect(() => {
-        const res = localStorage.getItem('words')
-        if (res) {
-            const words = JSON.parse(res)
-            setWords(words);
-            const list = getShuffled(words).slice(0, 4)
+        if (backendWords.length > 0) {
+            setWords(backendWords);
+            const list = getShuffled(backendWords).slice(0, 4)
             setList(list)
             setCorrect(list[0])
-        } else {
-            getWords().then((res) => {
-                setWords(res);
-                const list = getShuffled(res).slice(0, 4)
-                setList(list)
-                setCorrect(list[0])
-                localStorage.setItem('words', JSON.stringify(res))
-            })
+            localStorage.setItem('words', JSON.stringify(backendWords))
         }
 
-    }, [])
+    }, [backendWords])
+
+
+    useEffect(() => {
+        dispatch(getWordsAsync())
+    }, [dispatch])
 
     const handleClick = (id: number) => {
         setClicked(list.find(x => x.id === id))
@@ -81,7 +82,7 @@ const Game = () => {
     }
     return (
         <>
-            {((words.length > 0) && correct) ?
+            {((words.length > 0) && correct && (status !== 'loading')) ?
                 <>
                     <h1>{correct.tat}</h1>
                     <audio src={correct.audio} controls>
@@ -94,7 +95,7 @@ const Game = () => {
                             onClick={() => handleClick(id)}>{rus}</Button>
                         </li>)}
                     </ul>
-                </> : null}
+                </> : <div>Loading</div>}
             <Modal
                 isOpen={modalIsOpen}
                 onRequestClose={closeModal}
