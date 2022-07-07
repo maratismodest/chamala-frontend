@@ -4,6 +4,7 @@ import Footer from "./components/Footer/Footer";
 import Game from "./components/Game/Game";
 import Header from "./components/Header/Header";
 import Welcome from "./components/Welcome/Welcome";
+import {Counter} from "./features/counter/Counter";
 import classes from './styles.module.scss'
 
 export interface WordProps {
@@ -15,7 +16,6 @@ export interface WordProps {
 
 function App() {
 
-
     return (
         <BrowserRouter>
             <Header/>
@@ -23,6 +23,7 @@ function App() {
                 <Routes>
                     <Route index element={<Welcome/>}/>
                     <Route path={'game'} element={<Game/>}/>
+                    <Route path={'counter'} element={<Counter />} />
                 </Routes>
             </main>
             <Footer/>

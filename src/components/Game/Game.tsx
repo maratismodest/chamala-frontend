@@ -1,36 +1,83 @@
 import React, {useEffect, useState} from 'react';
-import {useDialogState,} from "reakit/Dialog";
+import Modal from 'react-modal';
 import {WordProps} from "../../App";
 import {getShuffled, getWords} from "../api";
 import Button from "../Button/Button";
+import {ReactComponent as Happy} from "./../../assets/happy.svg";
+import {ReactComponent as Sad} from "./../../assets/sad.svg";
+
+const customStyles = {
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+        minWidth: '200'
+    },
+};
+
+interface ModalBlockProps {
+    correct: boolean,
+    closeModal: () => void
+}
+
+const ModalBlock = ({correct, closeModal}: ModalBlockProps) => {
+    return (
+        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+            {correct ? <Happy style={{width: 90, height: 90}}/> :
+                <Sad style={{width: 90, height: 90}}/>}
+            <h3>{correct ? 'Верно' : 'Неверно'}</h3>
+            <Button onClick={closeModal}>Далее</Button>
+        </div>
+    )
+
+}
 
 const Game = () => {
     const [words, setWords] = useState<WordProps[]>([])
     const [list, setList] = useState<WordProps[]>([])
     const [correct, setCorrect] = useState<WordProps | undefined>(undefined)
-    // const dialog = useDialogState();
+    const [clicked, setClicked] = useState<WordProps | undefined>(undefined)
+    const [modalIsOpen, setIsOpen] = React.useState(false);
+
+    function openModal() {
+        setIsOpen(true);
+    }
+
+    function closeModal() {
+        setClicked(undefined)
+        const temp = getShuffled(words).slice(0, 4)
+        setList(temp)
+        setCorrect(getShuffled(temp)[0])
+        setIsOpen(false);
+    }
+
 
     useEffect(() => {
-        getWords().then((res) => {
-            setWords(res);
-            const list = getShuffled(res).slice(0, 4)
+        const res = localStorage.getItem('words')
+        if (res) {
+            const words = JSON.parse(res)
+            setWords(words);
+            const list = getShuffled(words).slice(0, 4)
             setList(list)
             setCorrect(list[0])
-        })
+        } else {
+            getWords().then((res) => {
+                setWords(res);
+                const list = getShuffled(res).slice(0, 4)
+                setList(list)
+                setCorrect(list[0])
+                localStorage.setItem('words', JSON.stringify(res))
+            })
+        }
+
     }, [])
 
     const handleClick = (id: number) => {
-        if (correct) {
-            if (correct.id === id) {
-                alert('Correct')
-            } else {
-                alert('Wrong!' + correct.rus)
-            }
-            const temp = getShuffled(words).slice(0, 4)
-            setList(temp)
-            setCorrect(getShuffled(temp)[0])
-        }
-
+        setClicked(list.find(x => x.id === id))
+        openModal()
     }
     return (
         <>
@@ -47,11 +94,15 @@ const Game = () => {
                             onClick={() => handleClick(id)}>{rus}</Button>
                         </li>)}
                     </ul>
-                    {/*<DialogDisclosure {...dialog}>Open dialog</DialogDisclosure>*/}
-                    {/*<Dialog {...dialog} aria-label="Welcome">*/}
-                    {/*    Welcome to Reakit!*/}
-                    {/*</Dialog>*/}
                 </> : null}
+            <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={closeModal}
+                style={customStyles}
+                contentLabel="Example Modal"
+            >
+                <ModalBlock correct={correct?.id === clicked?.id} closeModal={closeModal}/>
+            </Modal>
         </>
     );
 };

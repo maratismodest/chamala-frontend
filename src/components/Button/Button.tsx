@@ -1,6 +1,5 @@
 import React, {ReactNode} from 'react';
-import {Button as Btn} from 'reakit'
-import button from './Button.module.scss'
+import btn from './Button.module.scss'
 
 interface ButtonProps {
     children: ReactNode,
@@ -10,9 +9,9 @@ interface ButtonProps {
 
 const Button = ({children, onClick, ref}: ButtonProps) => {
     return (
-        <Btn className={button.button} onClick={onClick} ref={ref}>
+        <button className={btn.button} onClick={onClick} ref={ref}>
             {children}
-        </Btn>
+        </button>
     );
 };
 

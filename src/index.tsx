@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import './index.scss';
+import { Provider } from 'react-redux';
+import { store } from './app/store';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
@@ -10,9 +12,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
     <React.StrictMode>
-        {/*<Provider unstable_system={system}>*/}
+        <Provider store={store}>
         <App/>
-        {/*</Provider>*/}
+        </Provider>
     </React.StrictMode>
 );
 
