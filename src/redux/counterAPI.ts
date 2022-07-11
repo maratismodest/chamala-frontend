@@ -11,7 +11,7 @@ export function fetchCount(amount = 1) {
 export function fetchWords() {
     return new Promise<{ data: WordProps[] }>(async (resolve) => {
             try {
-                const response = await axios.get('https://chamala-backend.herokuapp.com/api/words')
+                const response = await axios.get('https://chamala-backend.herokuapp.com/api/word')
                 resolve({data: response.data})
             } catch (e) {
                 console.log('e', e)
