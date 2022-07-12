@@ -19,3 +19,15 @@ export function fetchWords() {
         }
     );
 }
+
+export function fetchPhrases() {
+    return new Promise<{ data: WordProps[] }>(async (resolve) => {
+            try {
+                const response = await axios.get('https://chamala-backend.herokuapp.com/api/phrase')
+                resolve({data: response.data})
+            } catch (e) {
+                console.log('e', e)
+            }
+        }
+    );
+}

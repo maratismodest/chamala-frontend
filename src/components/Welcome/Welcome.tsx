@@ -13,7 +13,7 @@ const Welcome = () => {
             <h1 className={cn(welcome.title, {
                 [welcome.titleMobile]: isMobile
             })}>Изучение татарского языка в формате мини-игр</h1>
-            <Link to={'/game'}><Button>Начать</Button></Link>
+            <Link to={'/pick-game'}><Button>Начать</Button></Link>
         </>
     );
 };

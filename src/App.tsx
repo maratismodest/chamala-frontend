@@ -3,6 +3,8 @@ import {BrowserRouter, Route, Routes,} from "react-router-dom";
 import Footer from "./components/Footer/Footer";
 import Game from "./components/Game/Game";
 import Header from "./components/Header/Header";
+import Phrase from "./components/Phrase/Phrase";
+import PickGame from "./components/PickGame/PickGame";
 import Welcome from "./components/Welcome/Welcome";
 import {Counter} from "./features/counter/Counter";
 import classes from './styles.module.scss'
@@ -22,8 +24,10 @@ function App() {
             <main className={classes.main}>
                 <Routes>
                     <Route index element={<Welcome/>}/>
+                    <Route path={'pick-game'} element={<PickGame/>}/>
                     <Route path={'game'} element={<Game/>}/>
-                    <Route path={'counter'} element={<Counter />} />
+                    <Route path={'phrase'} element={<Phrase/>}/>
+                    <Route path={'counter'} element={<Counter/>}/>
                 </Routes>
             </main>
             <Footer/>

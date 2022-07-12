@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Modal from 'react-modal';
 import {WordProps} from "../../App";
-import {getWordsAsync, selectGame} from "../../redux/gameSlice";
+import {getPhrasesAsync, selectGame} from "../../redux/gameSlice";
 import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import {getShuffled} from "../api";
 import Button from "../Button/Button";
@@ -37,14 +37,14 @@ const ModalBlock = ({correct, closeModal}: ModalBlockProps) => {
 
 }
 
-const Game = () => {
+const Phrase = () => {
     const [words, setWords] = useState<WordProps[]>([])
     const [list, setList] = useState<WordProps[]>([])
     const [correct, setCorrect] = useState<WordProps | undefined>(undefined)
     const [clicked, setClicked] = useState<WordProps | undefined>(undefined)
     const [modalIsOpen, setIsOpen] = React.useState(false);
 
-    const {status, words: backendWords} = useAppSelector(selectGame);
+    const {status, phrases: backendWords} = useAppSelector(selectGame);
     const dispatch = useAppDispatch();
 
     function openModal() {
@@ -74,7 +74,7 @@ const Game = () => {
 
     useEffect(() => {
         if (backendWords.length === 0) {
-            dispatch(getWordsAsync())
+            dispatch(getPhrasesAsync())
         }
     }, [dispatch])
 
@@ -110,4 +110,4 @@ const Game = () => {
     );
 };
 
-export default Game;
+export default Phrase;
