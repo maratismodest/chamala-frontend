@@ -7,7 +7,7 @@ const PickGame = () => {
         <>
             <Link to={'/game'}><Button>Слово</Button></Link>
             <div style={{marginBottom: 16}}></div>
-            <Link to={'/phrase'}><Button>Фраза</Button></Link>
+            <Link to={'/alias'}><Button>Alias</Button></Link>
         </>
     );
 };

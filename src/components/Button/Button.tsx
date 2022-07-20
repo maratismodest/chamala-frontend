@@ -1,15 +1,17 @@
-import React, {ReactNode} from 'react';
+import React, {CSSProperties, ReactNode} from 'react';
 import btn from './Button.module.scss'
 
 interface ButtonProps {
     children: ReactNode,
     onClick?: () => void,
-    ref?: any
+    ref?: any,
+    style?: CSSProperties,
+    disabled? : boolean
 }
 
-const Button = ({children, onClick, ref}: ButtonProps) => {
+const Button = ({children, onClick, style, ref,disabled}: ButtonProps) => {
     return (
-        <button className={btn.button} onClick={onClick} ref={ref}>
+        <button className={btn.button} onClick={onClick} ref={ref} style={style} disabled={disabled}>
             {children}
         </button>
     );

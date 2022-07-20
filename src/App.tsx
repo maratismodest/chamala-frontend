@@ -1,5 +1,6 @@
 import React from 'react';
 import {BrowserRouter, Route, Routes,} from "react-router-dom";
+import Alias from "./components/Alias/Alias";
 import Footer from "./components/Footer/Footer";
 import Game from "./components/Game/Game";
 import Header from "./components/Header/Header";
@@ -28,6 +29,7 @@ function App() {
                     <Route path={'game'} element={<Game/>}/>
                     <Route path={'phrase'} element={<Phrase/>}/>
                     <Route path={'counter'} element={<Counter/>}/>
+                    <Route path={'alias'} element={<Alias/>}/>
                 </Routes>
             </main>
             <Footer/>

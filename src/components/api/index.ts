@@ -1,7 +1,7 @@
 import axios from "axios";
 import {WordProps} from "../../App";
 
-export const getShuffled = (arr: WordProps[]) => arr
+export const getShuffled = (arr: WordProps[]) : WordProps[] => arr
     .map(value => ({value, sort: Math.random()}))
     .sort((a, b) => a.sort - b.sort)
     .map(({value}) => value)
