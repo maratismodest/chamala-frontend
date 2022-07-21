@@ -4,7 +4,7 @@ import footer from './Footer.module.scss'
 const Footer = () => {
     return (
         <footer className={footer.footer}>
-            @2022
+            2022
         </footer>
     );
 };

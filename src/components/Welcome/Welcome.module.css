@@ -2,9 +2,10 @@
   font-weight: 400;
   font-size: 48px;
   line-height: 126%;
+  max-width: 400px;
 }
 .titleMobile {
   font-size: 22px;
 }
 
-/*# sourceMappingURL=PickGame.module.css.map */
+/*# sourceMappingURL=Welcome.module.css.map */

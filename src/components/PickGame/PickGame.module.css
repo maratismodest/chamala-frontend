@@ -1,10 +1,9 @@
-.title {
-  font-weight: 400;
-  font-size: 48px;
-  line-height: 126%;
+.pickGame {
+  display: flex;
+  flex-direction: column;
 }
-.titleMobile {
-  font-size: 22px;
+.pickGame a {
+  margin-bottom: 16px;
 }
 
 /*# sourceMappingURL=PickGame.module.css.map */

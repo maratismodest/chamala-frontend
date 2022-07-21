@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {BrowserRouter, Route, Routes,} from "react-router-dom";
 import Alias from "./components/Alias/Alias";
 import Footer from "./components/Footer/Footer";
-import Game from "./components/Game/Game";
+import Guess from "./components/Guess/Guess";
 import Header from "./components/Header/Header";
 import PickGame from "./components/PickGame/PickGame";
 import Welcome from "./components/Welcome/Welcome";
@@ -18,6 +18,14 @@ export interface WordProps {
     audio: string
 }
 
+export const routes = {
+    main: "/",
+    pickGame: "/pick-game",
+    guess: "/guess",
+    alias: "/alias",
+    counter: "/counter"
+}
+
 function App() {
     const dispatch = useAppDispatch();
     const {words} = useAppSelector(selectGame);
@@ -26,7 +34,7 @@ function App() {
         if (words.length === 0) {
             dispatch(getWordsAsync())
         }
-    }, [])
+    }, [dispatch, words.length])
 
     return (
         <BrowserRouter>
@@ -34,10 +42,10 @@ function App() {
             <main className={classes.main}>
                 <Routes>
                     <Route index element={<Welcome/>}/>
-                    <Route path={'pick-game'} element={<PickGame/>}/>
-                    <Route path={'game'} element={<Game/>}/>
-                    <Route path={'alias'} element={<Alias/>}/>
-                    <Route path={'counter'} element={<Counter/>}/>
+                    <Route path={routes.pickGame} element={<PickGame/>}/>
+                    <Route path={routes.guess} element={<Guess/>}/>
+                    <Route path={routes.alias} element={<Alias/>}/>
+                    <Route path={routes.counter} element={<Counter/>}/>
                 </Routes>
             </main>
             <Footer/>

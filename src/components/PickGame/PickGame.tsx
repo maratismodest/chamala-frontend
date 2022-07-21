@@ -1,14 +1,15 @@
 import React from 'react';
 import {Link} from "react-router-dom";
+import {routes} from "../../App";
 import Button from "../Button/Button";
+import classes from './PickGame.module.scss'
 
 const PickGame = () => {
     return (
-        <>
-            <Link to={'/game'}><Button>Слово</Button></Link>
-            <div style={{marginBottom: 16}}></div>
-            <Link to={'/alias'}><Button>Alias</Button></Link>
-        </>
+        <div className={classes.pickGame}>
+            <Link to={routes.guess}><Button>Слово</Button></Link>
+            <Link to={routes.alias}><Button>Alias</Button></Link>
+        </div>
     );
 };
 
