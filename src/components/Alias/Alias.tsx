@@ -33,6 +33,13 @@ const Alias = () => {
         }
     }, [dispatch, words.length])
 
+    const resetGame = () => {
+        setCorrect(0)
+        setSkip(0)
+        time = new Date();
+        time.setSeconds(time.getSeconds() + 60);
+        restart(time)
+    }
 
     if (status === 'loading' || words.length === 0) {
         return (
@@ -49,13 +56,7 @@ const Alias = () => {
                     {seconds}
                 </div>
                 <div style={{display: 'flex', flexDirection: 'column'}}>
-                    <Button onClick={() => {
-                        setCorrect(0)
-                        setSkip(0)
-                        time = new Date();
-                        time.setSeconds(time.getSeconds() + 5);
-                        restart(time)
-                    }}
+                    <Button onClick={resetGame}
                     >
                         Старт
                     </Button>
@@ -66,14 +67,7 @@ const Alias = () => {
                         <span>{`Верно: ${correct}`}</span>
                         <span>{`Пропущено: ${skip}`}</span>
                         <span>{`Итог: ${correct - skip}`}</span>
-                        <Button onClick={() => {
-                            setIsOpen(false)
-                            setCorrect(0)
-                            setSkip(0)
-                            time = new Date();
-                            time.setSeconds(time.getSeconds() + 60);
-                            restart(time)
-                        }}>Старт</Button>
+                        <Button onClick={resetGame}>Старт</Button>
                     </>
                 </Modal>
             </div>
