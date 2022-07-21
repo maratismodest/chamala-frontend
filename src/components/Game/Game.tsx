@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import Modal from 'react-modal';
 import {WordProps} from "../../App";
-import {getWordsAsync, selectGame} from "../../redux/gameSlice";
-import {useAppDispatch, useAppSelector} from "../../redux/hooks";
+import {selectGame} from "../../redux/gameSlice";
+import {useAppSelector} from "../../redux/hooks";
 import {getShuffled} from "../api";
 import Button from "../Button/Button";
 import {ReactComponent as Happy} from "./../../assets/happy.svg";
@@ -38,50 +38,40 @@ const ModalBlock = ({correct, closeModal}: ModalBlockProps) => {
 }
 
 const Game = () => {
-    const [words, setWords] = useState<WordProps[]>([])
+    const {status, words} = useAppSelector(selectGame);
     const [list, setList] = useState<WordProps[]>([])
     const [correct, setCorrect] = useState<WordProps | undefined>(undefined)
     const [clicked, setClicked] = useState<WordProps | undefined>(undefined)
     const [modalIsOpen, setIsOpen] = React.useState(false);
 
-    const {status, words: backendWords} = useAppSelector(selectGame);
-    const dispatch = useAppDispatch();
+    useEffect(() => {
+        if (words.length > 0) {
+            const list = getShuffled(words).slice(0, 4)
+            setList(list)
+            setCorrect(getShuffled(list)[0])
+            localStorage.setItem('words', JSON.stringify(words))
+        }
 
-    function openModal() {
+    }, [words])
+
+    const openModal = () => {
         setIsOpen(true);
     }
 
-    function closeModal() {
+    const closeModal = () => {
         setClicked(undefined)
-        const temp = getShuffled(words).slice(0, 4)
-        setList(temp)
-        setCorrect(getShuffled(temp)[0])
+        const list = getShuffled(words).slice(0, 4)
+        setList(list)
+        setCorrect(getShuffled(list)[0])
         setIsOpen(false);
     }
-
-
-    useEffect(() => {
-        if (backendWords.length > 0) {
-            setWords(backendWords);
-            const list = getShuffled(backendWords).slice(0, 4)
-            setList(list)
-            setCorrect(list[0])
-            localStorage.setItem('words', JSON.stringify(backendWords))
-        }
-
-    }, [backendWords])
-
-
-    useEffect(() => {
-        if (backendWords.length === 0) {
-            dispatch(getWordsAsync())
-        }
-    }, [dispatch])
 
     const handleClick = (id: number) => {
         setClicked(list.find(x => x.id === id))
         openModal()
     }
+
+
     return (
         <>
             {((words.length > 0) && correct && (status !== 'loading')) ?
