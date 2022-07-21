@@ -71,7 +71,7 @@ const Alias = () => {
                             setCorrect(0)
                             setSkip(0)
                             time = new Date();
-                            time.setSeconds(time.getSeconds() + 5);
+                            time.setSeconds(time.getSeconds() + 60);
                             restart(time)
                         }}>Старт</Button>
                     </>
